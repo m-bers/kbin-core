@@ -102,7 +102,7 @@ COPY --chmod=755 --link docker/v2/docker-entrypoint ./
 RUN mkdir -p public/media && \
     chmod 777 public/media
 
-RUN chown -R $USER:$GROUP $KBIN_HOME
+RUN chown -R $USER:$GROUP $KBIN_HOME /data /config /var/www/kbin/public/media
 
 # Switch user
 USER $USER:$GROUP
