@@ -99,7 +99,7 @@ COPY --from=builder-yarn --chown=$USER:$GROUP $KBIN_HOME/public $KBIN_HOME/publi
 COPY --link docker/v2/caddy/Caddyfile /etc/caddy/Caddyfile
 COPY --chmod=755 --link docker/v2/docker-entrypoint ./
 
-RUN mkdir -p public/media && \
+RUN mkdir -p public/media /data /config && \
     chmod 777 public/media
 
 RUN chown -R $USER:$GROUP $KBIN_HOME /data /config /var/www/kbin/public/media
