@@ -1,0 +1,310 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: messenger-ap
+  name: messenger-ap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: messenger-ap
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c
+        kompose.version: 1.28.0 (c4137012e)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/v2-default: "true"
+        io.kompose.service: messenger-ap
+    spec:
+      containers:
+        - args:
+            - bin/console
+            - messenger:consume
+            - async_ap
+            - --time-limit=3600
+          env:
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  key: APP_ENV
+                  name: env
+            - name: APP_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: APP_SECRET
+                  name: env
+            - name: CADDY_MERCURE_JWT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: CADDY_MERCURE_JWT_SECRET
+                  name: env
+            - name: CADDY_MERCURE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CADDY_MERCURE_URL
+                  name: env
+            - name: CORS_ALLOW_ORIGIN
+              valueFrom:
+                configMapKeyRef:
+                  key: CORS_ALLOW_ORIGIN
+                  name: env
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_URL
+                  name: env
+            - name: HCAPTCHA_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: HCAPTCHA_SECRET
+                  name: env
+            - name: HCAPTCHA_SITE_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: HCAPTCHA_SITE_KEY
+                  name: env
+            - name: JWT_PASSPHRASE
+              valueFrom:
+                configMapKeyRef:
+                  key: JWT_PASSPHRASE
+                  name: env
+            - name: JWT_PUBLIC_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: JWT_PUBLIC_KEY
+                  name: env
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: JWT_SECRET_KEY
+                  name: env
+            - name: KBIN_API_ITEMS_PER_PAGE
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_API_ITEMS_PER_PAGE
+                  name: env
+            - name: KBIN_CAPTCHA_ENABLED
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_CAPTCHA_ENABLED
+                  name: env
+            - name: KBIN_CONTACT_EMAIL
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_CONTACT_EMAIL
+                  name: env
+            - name: KBIN_DEFAULT_LANG
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_DEFAULT_LANG
+                  name: env
+            - name: KBIN_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_DOMAIN
+                  name: env
+            - name: KBIN_FEDERATION_ENABLED
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_FEDERATION_ENABLED
+                  name: env
+            - name: KBIN_HEADER_LOGO
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_HEADER_LOGO
+                  name: env
+            - name: KBIN_JS_ENABLED
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_JS_ENABLED
+                  name: env
+            - name: KBIN_META_DESCRIPTION
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_META_DESCRIPTION
+                  name: env
+            - name: KBIN_META_KEYWORDS
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_META_KEYWORDS
+                  name: env
+            - name: KBIN_META_TITLE
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_META_TITLE
+                  name: env
+            - name: KBIN_REGISTRATIONS_ENABLED
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_REGISTRATIONS_ENABLED
+                  name: env
+            - name: KBIN_SENDER_EMAIL
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_SENDER_EMAIL
+                  name: env
+            - name: KBIN_STORAGE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_STORAGE_URL
+                  name: env
+            - name: KBIN_TITLE
+              valueFrom:
+                configMapKeyRef:
+                  key: KBIN_TITLE
+                  name: env
+            - name: LOCK_DSN
+              valueFrom:
+                configMapKeyRef:
+                  key: LOCK_DSN
+                  name: env
+            - name: MAILER_DSN
+              valueFrom:
+                configMapKeyRef:
+                  key: MAILER_DSN
+                  name: env
+            - name: MERCURE_JWT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: MERCURE_JWT_SECRET
+                  name: env
+            - name: MERCURE_PUBLIC_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: MERCURE_PUBLIC_URL
+                  name: env
+            - name: MERCURE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: MERCURE_URL
+                  name: env
+            - name: MESSENGER_TRANSPORT_DSN
+              valueFrom:
+                configMapKeyRef:
+                  key: MESSENGER_TRANSPORT_DSN
+                  name: env
+            - name: OAUTH_FACEBOOK_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: OAUTH_FACEBOOK_ID
+                  name: env
+            - name: OAUTH_FACEBOOK_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: OAUTH_FACEBOOK_SECRET
+                  name: env
+            - name: OAUTH_GITHUB_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: OAUTH_GITHUB_ID
+                  name: env
+            - name: OAUTH_GITHUB_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: OAUTH_GITHUB_SECRET
+                  name: env
+            - name: OAUTH_GOOGLE_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: OAUTH_GOOGLE_ID
+                  name: env
+            - name: OAUTH_GOOGLE_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: OAUTH_GOOGLE_SECRET
+                  name: env
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_DB
+                  name: env
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: env
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_USER
+                  name: env
+            - name: POSTGRES_VERSION
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_VERSION
+                  name: env
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: RABBITMQ_PASSWORD
+                  name: env
+            - name: REDIS_DNS
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_DNS
+                  name: env
+            - name: REDIS_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_PASSWORD
+                  name: env
+            - name: S3_BUCKET
+              valueFrom:
+                configMapKeyRef:
+                  key: S3_BUCKET
+                  name: env
+            - name: S3_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  key: S3_ENDPOINT
+                  name: env
+            - name: S3_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: S3_KEY
+                  name: env
+            - name: S3_REGION
+              valueFrom:
+                configMapKeyRef:
+                  key: S3_REGION
+                  name: env
+            - name: S3_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: S3_SECRET
+                  name: env
+            - name: S3_VERSION
+              valueFrom:
+                configMapKeyRef:
+                  key: S3_VERSION
+                  name: env
+            - name: SERVER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SERVER_NAME
+                  name: env
+          image: kbin
+          livenessProbe:
+            exec:
+              command:
+                - ps aux | grep 'messenger[:]consume' || exit 1
+          name: messenger-ap
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/www/kbin/public/media
+              name: media
+      restartPolicy: Always
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media
+status: {}

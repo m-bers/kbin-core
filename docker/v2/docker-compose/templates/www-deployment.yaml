@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: www
+  name: www
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: www
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c
+        kompose.version: 1.28.0 (c4137012e)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/v2-default: "true"
+        io.kompose.service: www
+    spec:
+      containers:
+        - args:
+            - caddy
+            - run
+            - --config
+            - /etc/caddy/Caddyfile
+            - --adapter
+            - caddyfile
+          env:
+            - name: MERCURE_PUBLISHER_JWT_KEY
+              value: $MERCURE_JWT_SECRET
+            - name: MERCURE_SUBSCRIBER_JWT_KEY
+              value: $MERCURE_JWT_SECRET
+            - name: PHP_FASTCGI_HOST
+              value: php:9000
+            - name: SERVER_NAME
+              value: :80
+          image: kbin
+          livenessProbe:
+            exec:
+              command:
+                - curl -f http://localhost:2019/metrics || exit 1
+          name: www
+          ports:
+            - containerPort: 80
+          resources: {}
+          volumeMounts:
+            - mountPath: /config
+              name: caddy-config
+            - mountPath: /data
+              name: caddy-data
+            - mountPath: /var/www/kbin/public/media
+              name: media
+      restartPolicy: Always
+      volumes:
+        - name: caddy-config
+          persistentVolumeClaim:
+            claimName: caddy-config
+        - name: caddy-data
+          persistentVolumeClaim:
+            claimName: caddy-data
+        - name: media
+          persistentVolumeClaim:
+            claimName: media
+status: {}

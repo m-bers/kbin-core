@@ -1,0 +1,60 @@
+apiVersion: v1
+data:
+  APP_ENV: prod
+  APP_SECRET: 427f5e2940e5b2472c1b44b2d06e0525
+  CADDY_MERCURE_JWT_SECRET: SwOozRVWs5eJecaFxTCTKp7z
+  CADDY_MERCURE_URL: https://example.com/.well-known/mercure
+  CORS_ALLOW_ORIGIN: ^https?://(kbin.localhost|127\.0\.0\.1)(:[0-9]+)?$
+  DATABASE_URL: postgresql://kbin:SwOozRVWs5eJecaFxTCTKp7z@db:5432/kbin?serverVersion=13&charset=utf8
+  HCAPTCHA_SECRET: ""
+  HCAPTCHA_SITE_KEY: ""
+  JWT_PASSPHRASE: ""
+  JWT_PUBLIC_KEY: '%kernel.project_dir%/config/jwt/public.pem'
+  JWT_SECRET_KEY: '%kernel.project_dir%/config/jwt/private.pem'
+  KBIN_API_ITEMS_PER_PAGE: "25"
+  KBIN_CAPTCHA_ENABLED: "false"
+  KBIN_CONTACT_EMAIL: contact@karab.kbin.pub
+  KBIN_DEFAULT_LANG: en
+  KBIN_DOMAIN: kbin.localhost
+  KBIN_FEDERATION_ENABLED: "true"
+  KBIN_HEADER_LOGO: "false"
+  KBIN_JS_ENABLED: "true"
+  KBIN_META_DESCRIPTION: content aggregator and micro-blogging platform for the fediverse
+  KBIN_META_KEYWORDS: kbin, content agregator, open source, fediverse
+  KBIN_META_TITLE: Kbin Lab
+  KBIN_REGISTRATIONS_ENABLED: "true"
+  KBIN_SENDER_EMAIL: noreply@mg.kbin.pub
+  KBIN_STORAGE_URL: https://media.kbin.pub
+  KBIN_TITLE: /kbin
+  LOCK_DSN: flock
+  MAILER_DSN: mailgun+smtp://postmaster@sandboxxx.mailgun.org:key@default?region=us
+  MERCURE_JWT_SECRET: SwOozRVWs5eJecaFxTCTKp7z
+  MERCURE_PUBLIC_URL: https://kbin.localhost, caddy:80/.well-known/mercure
+  MERCURE_URL: http://www:80/.well-known/mercure
+  MESSENGER_TRANSPORT_DSN: amqp://kbin:SwOozRVWs5eJecaFxTCTKp7z@rabbitmq:5672/%2f/messages
+  OAUTH_FACEBOOK_ID: ""
+  OAUTH_FACEBOOK_SECRET: ""
+  OAUTH_GITHUB_ID: ""
+  OAUTH_GITHUB_SECRET: ""
+  OAUTH_GOOGLE_ID: ""
+  OAUTH_GOOGLE_SECRET: ""
+  POSTGRES_DB: kbin
+  POSTGRES_PASSWORD: SwOozRVWs5eJecaFxTCTKp7z
+  POSTGRES_USER: kbin
+  POSTGRES_VERSION: "13"
+  RABBITMQ_PASSWORD: SwOozRVWs5eJecaFxTCTKp7z
+  REDIS_DNS: redis://SwOozRVWs5eJecaFxTCTKp7z@redis
+  REDIS_PASSWORD: SwOozRVWs5eJecaFxTCTKp7z
+  S3_BUCKET: media.karab.in
+  S3_ENDPOINT: ""
+  S3_KEY: ""
+  S3_REGION: eu-central-1
+  S3_SECRET: ""
+  S3_VERSION: latest
+  SERVER_NAME: kbin.localhost, caddy:80
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: messenger-env
+  name: env

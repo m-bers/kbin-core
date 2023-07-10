@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: redis
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: redis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c
+        kompose.version: 1.28.0 (c4137012e)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/v2-default: "true"
+        io.kompose.service: redis
+    spec:
+      containers:
+        - args:
+            - /bin/sh
+            - -c
+            - redis-server --requirepass $()$(){REDIS_PASSWORD}
+          image: redis:alpine
+          livenessProbe:
+            exec:
+              command:
+                - redis-cli
+                - ping
+          name: redis
+          ports:
+            - containerPort: 6379
+          resources: {}
+          volumeMounts:
+            - mountPath: /data
+              name: redis
+      restartPolicy: Always
+      volumes:
+        - name: redis
+          persistentVolumeClaim:
+            claimName: redis
+status: {}
