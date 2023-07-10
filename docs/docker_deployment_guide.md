@@ -23,8 +23,6 @@ $ docker build -t kbin -f docker/v2/Dockerfile .
 $ cd docker/v2
 $ cp ../../.env.example .env
 $ cp docker-compose.prod.yml docker-compose.override.yml
-$ mkdir -p storage/media storage/caddy_condig storage/caddy_data
-$ sudo chown 1000:82 storage/media storage/caddy_condig storage/caddy_data
 ```
 
 ### Configure `.env`
